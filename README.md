@@ -1,7 +1,7 @@
 # Tik-Tok
 组织：https://github.com/cqupt-TikTok
 
-项目仓库：https://github.com/cqupt-TikTok/Tik-Tok
+项目仓库：https://github.com/cqupt-TikTok/TikTok
 
 分工板块：
 
@@ -19,10 +19,9 @@
 | 目录     | 功能             |
 | -------- | ---------------- |
 | api      | 放各类路由函数   |
+|config    | 配置文件         |
 | db       | 数据库初始化函数 |
 | function | 各类基本功能函数 |
 | model    | 各个模型文件     |
 | router   | 路由api          |
 | main     | 主函数           |
-
-![image](https://user-images.githubusercontent.com/93390152/171160230-d5802351-ce3b-4b8d-8dd7-b9362c10c3ad.png)
