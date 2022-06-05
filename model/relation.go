@@ -2,18 +2,18 @@ package model
 
 import "time"
 
-// Follower 用户关注表
-type Follower struct {
-	Id         int64     `gorm:"id"`          //主键唯一id
-	UserId     int64     `gorm:"user_id"`     //用户id
-	FollowerId int64     `gorm:"follower_id"` //关注用户的id
-	FollowDate time.Time `gorm:"follow_date"` //关注时间
+// FollowRelation 用户关注表
+type FollowRelation struct {
+	Id         int64     `gorm:"column:id;primaryKey"` //主键唯一id
+	FollowerId int64     `gorm:"column:follower_id"`   //被关注用户的id
+	UserId     int64     `gorm:"column:user_id"`       //用户id
+	FollowDate time.Time `gorm:"column:follow_date"`   //关注时间
 }
 
-// FavoriteVideo 视频点赞表
-type FavoriteVideo struct {
-	Id           int64     `gorm:"id"`            //主键唯一id
-	VideoId      int64     `gorm:"video_id"`      //视频id
-	UserId       int64     `gorm:"user_id"`       //用户id
-	FavoriteDate time.Time `gorm:"favorite_date"` //点赞时间
+// FavoriteVideoRelation 视频点赞表
+type FavoriteVideoRelation struct {
+	Id           int64     `gorm:"column:id;primaryKey"` //主键唯一id
+	VideoId      int64     `gorm:"column:video_id"`      //视频id
+	UserId       int64     `gorm:"column:user_id"`       //点赞用户id
+	FavoriteDate time.Time `gorm:"column:favorite_date"` //点赞时间
 }
