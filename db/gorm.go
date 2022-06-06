@@ -2,7 +2,6 @@ package db
 
 import (
 	"TikTok/config"
-	"TikTok/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -16,10 +15,9 @@ func InitDb() error {
 	if err != nil {
 		return err
 	}
-	err = DB.AutoMigrate(&model.User{}, &model.Video{}, &model.Comment{}, &model.FollowRelation{}, &model.FavoriteVideoRelation{})
-	if err != nil {
-		return err
-	}
+	//err = DB.AutoMigrate(&model.User{}, &model.Video{}, &model.Comment{}, &model.FollowRelation{}, &model.FavoriteVideoRelation{})
+	//if err != nil {
+	//	return err
+	//}
 	return nil
-
 }
