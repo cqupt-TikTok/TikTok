@@ -2,6 +2,7 @@ package model
 
 import (
 	"TikTok/db"
+	"fmt"
 	"gorm.io/gorm"
 )
 
@@ -25,7 +26,8 @@ type CommentResp struct {
 func (C Comment) ToResp(UserId uint) (CR CommentResp) {
 	CR.Id = C.ID
 	CR.Content = C.Content
-	CR.CreateDate = C.CreatedAt.String()
+	year, month, day := C.CreatedAt.Date()
+	CR.CreateDate = fmt.Sprintf("%d%02d%02d", year, month, day)
 	var U User
 	db.DB.Where("id=?", C.UserId).First(&U)
 	if U.ID > 0 {
