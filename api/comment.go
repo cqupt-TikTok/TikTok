@@ -40,7 +40,7 @@ func CommentAction(c *gin.Context) {
 		})
 		return
 	} else if actionType == 2 {
-		commentId64, _ := strconv.ParseUint(c.Query("video_id"), 10, 64)
+		commentId64, _ := strconv.ParseUint(c.Query("comment_id"), 10, 64)
 		commentId := uint(commentId64)
 		err := function.DeleteComment(commentId, userId, videoId)
 		if err != nil {

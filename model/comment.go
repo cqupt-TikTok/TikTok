@@ -9,7 +9,7 @@ import (
 type Comment struct {
 	gorm.Model
 	VideoId uint   `gorm:"column:video_id;not null"` //视频id作为外键
-	UserId  uint   `gorm:"column:userId;not null"`   //用户id，作为第二外键
+	UserId  uint   `gorm:"column:user_id;not null"`  //用户id，作为第二外键
 	Content string `gorm:"column:content;type:text"` //评论内容
 }
 
@@ -29,10 +29,10 @@ func (C Comment) ToResp(UserId uint) (CR CommentResp) {
 	var U User
 	db.DB.Where("id=?", C.UserId).First(&U)
 	if U.ID > 0 {
-		CR.User = UserResp{}
+		CR.User = U.ToResp()
 		CR.User.IsFollowJudge(UserId)
 	} else {
-		CR.User = U.ToResp()
+		CR.User = UserResp{}
 	}
 	return CR
 }
