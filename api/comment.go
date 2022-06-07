@@ -66,5 +66,20 @@ func CommentAction(c *gin.Context) {
 
 // CommentList 评论列表
 func CommentList(c *gin.Context) {
-
+	userId := uint(1)
+	videoId64, _ := strconv.ParseUint(c.Query("video_id"), 10, 64)
+	videoId := uint(videoId64)
+	videoList, err := function.CommentList(videoId, userId)
+	if err != nil {
+		c.JSON(http.StatusOK, model.CommentListResponse{
+			BaseResponse: model.BaseResponse{StatusCode: 1, StatusMsg: "false"},
+			CommentList:  videoList,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, model.CommentListResponse{
+		BaseResponse: model.BaseResponse{StatusCode: 0, StatusMsg: "success"},
+		CommentList:  videoList,
+	})
+	return
 }

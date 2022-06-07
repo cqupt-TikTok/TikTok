@@ -8,7 +8,7 @@ import (
 func InitRouter() error {
 	r := gin.Default()
 	r.POST("/douyin/comment/action/", api.CommentAction)
-
+	r.GET("/douyin/comment/list/", api.CommentList)
 	err := r.Run(":7070")
 	if err != nil {
 
