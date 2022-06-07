@@ -3,6 +3,7 @@ package main
 import (
 	"TikTok/db"
 	"TikTok/model"
+	"TikTok/router"
 	"fmt"
 	"gorm.io/gorm"
 )
@@ -16,7 +17,10 @@ func main() {
 	if err != nil {
 		return
 	}
-
+	err = router.InitRouter()
+	if err != nil {
+		panic(err)
+	}
 	//结构体方法调用示例
 	var u model.User
 	if err := db.DB.Where("id = ?", 1).First(&u).Error; err == gorm.ErrRecordNotFound {

@@ -27,12 +27,12 @@ func (C Comment) ToResp(UserId uint) (CR CommentResp) {
 	CR.Content = C.Content
 	CR.CreateDate = C.CreatedAt.String()
 	var U User
-	db.DB.Where("id=?", C.UserId).First(&U)
+	db.DB.Model(&User{}).Where("id = ?", C.UserId).First(&U)
 	if U.ID > 0 {
-		CR.User = UserResp{}
+		CR.User = U.ToResp()
 		CR.User.IsFollowJudge(UserId)
 	} else {
-		CR.User = U.ToResp()
+		CR.User = UserResp{}
 	}
 	return CR
 }
