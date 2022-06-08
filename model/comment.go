@@ -31,10 +31,10 @@ func (C Comment) ToResp(UserId uint) (CR CommentResp) {
 	var U User
 	db.DB.Where("id=?", C.UserId).First(&U)
 	if U.ID > 0 {
-		CR.User = UserResp{}
+		CR.User = U.ToResp()
 		CR.User.IsFollowJudge(UserId)
 	} else {
-		CR.User = U.ToResp()
+		CR.User = UserResp{}
 	}
 	return CR
 }
