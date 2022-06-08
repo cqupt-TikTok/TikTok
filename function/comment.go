@@ -3,7 +3,6 @@ package function
 import (
 	"TikTok/db"
 	"TikTok/model"
-	"fmt"
 	"gorm.io/gorm"
 )
 
@@ -27,7 +26,6 @@ func AddComment(tempComment model.Comment) error {
 		tx.Rollback()
 		return err
 	}
-	fmt.Println(tempComment)
 	if err := tx.Create(&tempComment).Error; err != nil {
 		tx.Rollback()
 		return err

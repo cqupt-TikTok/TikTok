@@ -3,20 +3,20 @@ package model
 // BaseResponse 基本响应
 type BaseResponse struct {
 	StatusCode int32  `json:"status_code"`
-	StatusMsg  string `json:"status_msg,omitempty"`
+	StatusMsg  string `json:"status_msg"`
 }
 
 // FeedResponse 视频流响应
 type FeedResponse struct {
 	BaseResponse
-	VideoList []VideoResp `json:"video_list,omitempty"` // 视频列表
-	NextTime  int64       `json:"next_time,omitempty"`  // 本次返回的视频中，发布最早的时间，作为下次请求时的latest_time
+	VideoList []VideoResp `json:"video_list"` // 视频列表
+	NextTime  int64       `json:"next_time"`  // 本次返回的视频中，发布最早的时间，作为下次请求时的latest_time
 }
 
 // UserResponse 用户注册，登录响应
 type UserResponse struct {
 	BaseResponse
-	UserId int64  `json:"user_id,omitempty"`
+	UserId int64  `json:"user_id"`
 	Token  string `json:"token"`
 }
 
