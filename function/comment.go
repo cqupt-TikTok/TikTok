@@ -3,6 +3,7 @@ package function
 import (
 	"TikTok/dbfunc"
 	"TikTok/model"
+	"TikTok/util"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"strconv"
@@ -11,9 +12,13 @@ import (
 
 // CommentAction 评论操作
 func CommentAction(c *gin.Context) (commentResp model.CommentResp, err error) {
-
-	userId := uint(1) //后期更改
-
+	token := c.Query("token")
+	var key *util.MyClaims
+	key, err = util.CheckToken(token)
+	if err != nil {
+		return commentResp, err
+	}
+	userId := key.UserId
 	videoId64, _ := strconv.ParseUint(c.Query("video_id"), 10, 64)
 	videoId := uint(videoId64)
 	actionType := c.Query("action_type")
@@ -45,9 +50,14 @@ func CommentAction(c *gin.Context) (commentResp model.CommentResp, err error) {
 
 // CommentList 评论列表
 func CommentList(c *gin.Context) (model.CommentListResponse, error) {
-
-	userId := uint(1) //后期更改
-
+	token := c.Query("token")
+	var key *util.MyClaims
+	var err error
+	key, err = util.CheckToken(token)
+	if err != nil {
+		return model.CommentListResponse{}, err
+	}
+	userId := key.UserId
 	videoId64, _ := strconv.ParseUint(c.Query("video_id"), 10, 64)
 	videoId := uint(videoId64)
 	commentList, err := dbfunc.CommentList(videoId, userId)

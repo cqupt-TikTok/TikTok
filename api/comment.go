@@ -50,8 +50,9 @@ func CommentList(c *gin.Context) {
 	resp, err = function.CommentList(c)
 	if err != nil {
 		resp.StatusCode = -1
-		resp.StatusMsg = "查询失败"
+		resp.StatusMsg = "查询失败:" + err.Error()
 		c.JSON(http.StatusOK, resp)
+		return
 	}
 	resp.StatusCode = 0
 	resp.StatusMsg = "查询成功"

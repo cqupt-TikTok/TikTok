@@ -3,6 +3,7 @@ package function
 import (
 	"TikTok/dbfunc"
 	"TikTok/model"
+	"TikTok/util"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"strconv"
@@ -10,8 +11,13 @@ import (
 
 // FavoriteAction 点赞操作
 func FavoriteAction(c *gin.Context) (err error) {
-	userId := uint(1)
-
+	token := c.Query("token")
+	var key *util.MyClaims
+	key, err = util.CheckToken(token)
+	if err != nil {
+		return err
+	}
+	userId := key.UserId
 	videoId64, _ := strconv.ParseUint(c.Query("video_id"), 10, 64)
 	actionType := c.Query("action_type")
 	videoId := uint(videoId64)
