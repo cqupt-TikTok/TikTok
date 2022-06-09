@@ -16,7 +16,7 @@ type FeedResponse struct {
 // UserResponse 用户注册，登录响应
 type UserResponse struct {
 	BaseResponse
-	UserId int64  `json:"user_id"`
+	UserId uint   `json:"user_id"`
 	Token  string `json:"token"`
 }
 

@@ -34,7 +34,7 @@ func FavoriteAction(c *gin.Context) {
 	return
 }
 
-//
+// FavoriteVideoList 点赞视频列表
 func FavoriteVideoList(c *gin.Context) {
 	favoriteListResponse, err := function.FavoriteVideoList(c)
 	if err != nil {
