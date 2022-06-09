@@ -6,10 +6,10 @@
 package function
 
 import (
+	"TikTok/dbfunc"
 	"errors"
 	"strconv"
 
-	"TikTok/db"
 	"TikTok/model"
 	"github.com/gin-gonic/gin"
 )
@@ -32,10 +32,10 @@ func FollowAction(c *gin.Context) (err error) {
 		UserId:     UserId,
 	}
 	if ActionType == "1" {
-		err = db.CreateRelation(relation)
+		err = dbfunc.CreateRelation(relation)
 		return
 	} else if ActionType == "2" {
-		err = db.DeleteRelation(relation)
+		err = dbfunc.DeleteRelation(relation)
 		return
 	} else {
 		return errors.New("请求参数不规范")
@@ -50,12 +50,12 @@ func FollowList(c *gin.Context) (FollowList []model.UserResp, err error) {
 	}
 	userId := uint(userIdInt)
 
-	followCount, err := db.GetFollowCount(userId)
+	followCount, err := dbfunc.GetFollowCount(userId)
 	if err != nil {
 		return
 	}
 
-	userIds, err := db.GetFollowIds(userId, followCount)
+	userIds, err := dbfunc.GetFollowIds(userId, followCount)
 	if err != nil {
 		return
 	}
@@ -76,12 +76,12 @@ func FollowerList(c *gin.Context) (FollowerList []model.UserResp, err error) {
 	}
 	userId := uint(userIdInt)
 
-	followerCount, err := db.GetFollowerCount(userId)
+	followerCount, err := dbfunc.GetFollowerCount(userId)
 	if err != nil {
 		return
 	}
 
-	userIds, err := db.GetFollowerIds(userId, followerCount)
+	userIds, err := dbfunc.GetFollowerIds(userId, followerCount)
 	if err != nil {
 		return
 	}
@@ -96,7 +96,7 @@ func FollowerList(c *gin.Context) (FollowerList []model.UserResp, err error) {
 
 func GetUserList(uids []uint, size int64) (UserList []model.UserResp, err error) {
 	UserList = make([]model.UserResp, 0, size)
-	Users, err := db.GetUsers(uids, size)
+	Users, err := dbfunc.GetUsers(uids, size)
 	if err != nil {
 		return nil, err
 	}

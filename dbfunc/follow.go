@@ -3,12 +3,15 @@
 // @Author : MX
 // @Update : 2022/6/6 17:35
 
-package db
+package dbfunc
 
-import "TikTok/model"
+import (
+	"TikTok/gorm"
+	"TikTok/model"
+)
 
 func CreateRelation(relation model.FollowRelation) (err error) {
-	err = DB.Create(&relation).Error
+	err = gorm.DB.Create(&relation).Error
 	if err != nil {
 		return err
 	}
@@ -16,7 +19,7 @@ func CreateRelation(relation model.FollowRelation) (err error) {
 }
 
 func DeleteRelation(relation model.FollowRelation) (err error) {
-	err = DB.Where("follower_id = ? AND user_id = ?", relation.FollowerId, relation.UserId).
+	err = gorm.DB.Where("follower_id = ? AND user_id = ?", relation.FollowerId, relation.UserId).
 		Delete(&model.FollowRelation{}).Error
 	if err != nil {
 		return
@@ -26,7 +29,7 @@ func DeleteRelation(relation model.FollowRelation) (err error) {
 
 func GetFollowCount(uid uint) (FollowCount int64, err error) {
 	var user model.User
-	err = DB.Model(&user).Select("follow_count").First(uid).Error
+	err = gorm.DB.Model(&user).Select("follow_count").First(uid).Error
 	if err != nil {
 		return
 	}
@@ -35,7 +38,7 @@ func GetFollowCount(uid uint) (FollowCount int64, err error) {
 
 func GetFollowerCount(uid uint) (FollowCount int64, err error) {
 	var user model.User
-	err = DB.Model(&user).Select("follower_count").First(uid).Error
+	err = gorm.DB.Model(&user).Select("follower_count").First(uid).Error
 	if err != nil {
 		return
 	}
@@ -47,7 +50,7 @@ func GetFollowIds(uid uint, size int64) (uids []uint, err error) {
 	relations := make([]model.FollowRelation, 0, size)
 	uids = make([]uint, 0, size)
 
-	err = DB.Model(&model.FollowRelation{}).Select("follower_id").
+	err = gorm.DB.Model(&model.FollowRelation{}).Select("follower_id").
 		Where("user_id = ?", uid).Find(&relations).Error
 
 	for _, relation := range relations {
@@ -62,7 +65,7 @@ func GetFollowerIds(uid uint, size int64) (uids []uint, err error) {
 	relations := make([]model.FollowRelation, 0, size)
 	uids = make([]uint, 0, size)
 
-	err = DB.Model(&model.FollowRelation{}).Select("user_id").
+	err = gorm.DB.Model(&model.FollowRelation{}).Select("user_id").
 		Where("follower_id = ?", uid).Find(&relations).Error
 
 	for _, relation := range relations {
@@ -74,7 +77,7 @@ func GetFollowerIds(uid uint, size int64) (uids []uint, err error) {
 
 func GetUsers(uids []uint, size int64) (users []model.User, err error) {
 	users = make([]model.User, 0, size)
-	err = DB.Model(&model.User{}).Where("id IN ?", uids).Find(&users).Error
+	err = gorm.DB.Model(&model.User{}).Where("id IN ?", uids).Find(&users).Error
 	if err != nil {
 		return nil, err
 	}

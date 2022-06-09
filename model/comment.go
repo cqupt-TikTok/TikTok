@@ -1,7 +1,7 @@
 package model
 
 import (
-	"TikTok/db"
+	gorm2 "TikTok/gorm"
 	"fmt"
 	"gorm.io/gorm"
 )
@@ -29,7 +29,7 @@ func (C Comment) ToResp(UserId uint) (CR CommentResp) {
 	_, month, day := C.CreatedAt.Date()
 	CR.CreateDate = fmt.Sprintf("%02d-%02d", month, day)
 	var U User
-	db.DB.Where("id = ?", C.UserId).First(&U)
+	gorm2.DB.Where("id = ?", C.UserId).First(&U)
 	if U.ID > 0 {
 		CR.User = U.ToResp()
 		CR.User.IsFollowJudge(UserId)

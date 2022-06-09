@@ -1,4 +1,4 @@
-package db
+package gorm
 
 import (
 	"TikTok/config"
@@ -15,9 +15,5 @@ func InitDb() error {
 	if err != nil {
 		return err
 	}
-	//err = DB.AutoMigrate(&model.User{}, &model.Video{}, &model.Comment{}, &model.FollowRelation{}, &model.FavoriteVideoRelation{})
-	//if err != nil {
-	//	return err
-	//}
 	return nil
 }

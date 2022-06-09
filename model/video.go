@@ -1,7 +1,7 @@
 package model
 
 import (
-	"TikTok/db"
+	gorm2 "TikTok/gorm"
 	"gorm.io/gorm"
 )
 
@@ -37,7 +37,7 @@ func (V Video) ToResp(UserId uint) (VR VideoResp) {
 	VR.FavoriteCount = V.FavoriteCount
 	VR.CommentCount = V.CommentCount
 	var u User
-	db.DB.Where("id = ?", V.AuthorId).First(&u)
+	gorm2.DB.Where("id = ?", V.AuthorId).First(&u)
 	if u.ID > 0 {
 		VR.Author = u.ToResp()
 		VR.Author.IsFollowJudge(UserId)
@@ -51,7 +51,7 @@ func (V Video) ToResp(UserId uint) (VR VideoResp) {
 // IsFavoriteJudge 点赞校验，视情况调用
 func (VR *VideoResp) IsFavoriteJudge(UserId uint) {
 	var FVR FavoriteVideoRelation
-	db.DB.Where("video_id = ? AND user_id = ?", VR.Id, UserId).First(&FVR)
+	gorm2.DB.Where("video_id = ? AND user_id = ?", VR.Id, UserId).First(&FVR)
 	if FVR.Id <= 0 {
 		(*VR).IsFavorite = false
 	}
