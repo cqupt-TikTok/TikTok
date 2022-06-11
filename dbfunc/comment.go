@@ -1,15 +1,15 @@
 package dbfunc
 
 import (
-	gorm2 "TikTok/gorm"
 	"TikTok/model"
+	"TikTok/storage"
 	"gorm.io/gorm"
 )
 
 // AddComment 添加评论
 func AddComment(tempComment model.Comment) error {
 	//开启事务
-	tx := gorm2.DB.Begin()
+	tx := storage.DB.Begin()
 	defer func() {
 		if r := recover(); r != nil {
 			tx.Rollback()
@@ -41,7 +41,7 @@ func AddComment(tempComment model.Comment) error {
 // DeleteComment 删除评论
 func DeleteComment(commentId, userId, videoId uint) error {
 	//开始事务
-	tx := gorm2.DB.Begin()
+	tx := storage.DB.Begin()
 	defer func() {
 		if r := recover(); r != nil {
 			tx.Rollback()
@@ -79,7 +79,7 @@ func DeleteComment(commentId, userId, videoId uint) error {
 // CommentList 查询评论列表
 func CommentList(videoId, userId uint) (commentRespList []model.CommentResp, err error) {
 	var commentList []model.Comment
-	err = gorm2.DB.Model(&model.Comment{}).Where("video_id = ?", videoId).Find(&commentList).Error
+	err = storage.DB.Model(&model.Comment{}).Where("video_id = ?", videoId).Find(&commentList).Error
 	if err != nil {
 		return nil, err
 	}

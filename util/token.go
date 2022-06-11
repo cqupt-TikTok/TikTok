@@ -1,8 +1,11 @@
 package util
 
 import (
+	"TikTok/model"
 	"errors"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
+	"net/http"
 	"time"
 )
 
@@ -48,4 +51,20 @@ func CheckToken(token string) (*MyClaims, error) {
 		return key, errors.New("token过期")
 	}
 	return key, nil
+}
+
+func JWT() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token := c.Query("token")
+		_, err := CheckToken(token)
+		if err != nil {
+			c.JSON(http.StatusOK, model.BaseResponse{
+				StatusCode: -1,
+				StatusMsg:  err.Error(),
+			})
+			c.Abort()
+			return
+		}
+		c.Next()
+	}
 }

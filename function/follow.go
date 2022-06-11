@@ -7,69 +7,76 @@ package function
 
 import (
 	"TikTok/dbfunc"
+	"TikTok/util"
 	"errors"
 	"strconv"
+	"time"
 
 	"TikTok/model"
 	"github.com/gin-gonic/gin"
 )
 
-func FollowAction(c *gin.Context) (err error) {
-	toUserIdStr := c.Param("to_user_id")
-	toUserIdInt, err := strconv.Atoi(toUserIdStr)
+func FollowAction(c *gin.Context) error {
+	toUserIdStr := c.Query("to_user_id")
+	toUserId64, err := strconv.Atoi(toUserIdStr)
 	if err != nil {
 		return errors.New("请求参数不规范")
 	}
-	ToUserId := uint(toUserIdInt)
-
-	ActionType := c.Param("action_type")
-
-	UserIdValue, _ := c.Get("uid")
-	UserId := UserIdValue.(uint)
-
+	ToUserId := uint(toUserId64)
+	ActionType := c.Query("action_type")
+	var key *util.MyClaims
+	var Tid uint
+	token := c.Query("token")
+	if token == "" {
+		Tid = 0
+	} else {
+		key, err = util.CheckToken(token)
+		if err != nil {
+			return err
+		}
+		Tid = key.UserId
+	}
 	relation := model.FollowRelation{
 		FollowerId: ToUserId,
-		UserId:     UserId,
+		UserId:     Tid,
+		FollowDate: time.Now(),
 	}
 	if ActionType == "1" {
 		err = dbfunc.CreateRelation(relation)
-		return
+		return err
 	} else if ActionType == "2" {
 		err = dbfunc.DeleteRelation(relation)
-		return
+		return err
 	} else {
 		return errors.New("请求参数不规范")
 	}
 }
 
-func FollowList(c *gin.Context) (FollowList []model.UserResp, err error) {
-	userIdStr := c.Param("user_id")
-	userIdInt, err := strconv.Atoi(userIdStr)
+func FollowList(c *gin.Context) ([]model.UserResp, error) {
+	var FollowList []model.UserResp
+	userIdStr := c.Query("user_id")
+	userId64, err := strconv.Atoi(userIdStr)
 	if err != nil {
 		return nil, errors.New("请求参数不规范")
 	}
-	userId := uint(userIdInt)
-
+	userId := uint(userId64)
 	followCount, err := dbfunc.GetFollowCount(userId)
 	if err != nil {
-		return
+		return FollowList, err
 	}
-
 	userIds, err := dbfunc.GetFollowIds(userId, followCount)
 	if err != nil {
-		return
+		return FollowList, err
 	}
-
 	FollowList, err = GetUserList(userIds, followCount)
 	if err != nil {
-		return
+		return FollowList, err
 	}
-
-	return
+	return FollowList, nil
 }
 
 func FollowerList(c *gin.Context) (FollowerList []model.UserResp, err error) {
-	userIdStr := c.Param("user_id")
+	userIdStr := c.Query("user_id")
 	userIdInt, err := strconv.Atoi(userIdStr)
 	if err != nil {
 		return nil, errors.New("请求参数不规范")
@@ -100,10 +107,8 @@ func GetUserList(uids []uint, size int64) (UserList []model.UserResp, err error)
 	if err != nil {
 		return nil, err
 	}
-
 	for _, user := range Users {
 		UserList = append(UserList, user.ToResp())
 	}
-
 	return
 }

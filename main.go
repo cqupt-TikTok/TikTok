@@ -1,18 +1,18 @@
 package main
 
 import (
-	"TikTok/gorm"
 	"TikTok/model"
 	"TikTok/router"
+	"TikTok/storage"
 )
 
 func main() {
-	err := gorm.InitDb()
+	err := storage.InitDb()
 	if err != nil {
 		panic(err)
 	}
 
-	err = gorm.DB.AutoMigrate(&model.User{}, &model.Video{}, &model.Comment{}, &model.FollowRelation{}, &model.FavoriteVideoRelation{})
+	err = storage.DB.AutoMigrate(&model.User{}, &model.Video{}, &model.Comment{}, &model.FollowRelation{}, &model.FavoriteVideoRelation{})
 	if err != nil {
 		panic(err)
 	}

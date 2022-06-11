@@ -1,8 +1,8 @@
 package dbfunc
 
 import (
-	"TikTok/gorm"
 	"TikTok/model"
+	"TikTok/storage"
 	"TikTok/util"
 	"errors"
 )
@@ -10,13 +10,13 @@ import (
 // Register 注册
 func Register(username, password string) (uint, error) {
 	var tempUser model.User
-	gorm.DB.Where("name = ?", username).First(&tempUser)
+	storage.DB.Where("name = ?", username).First(&tempUser)
 	if tempUser.ID > 0 {
 		return 0, errors.New("用户名已存在")
 	}
 	tempUser.Name = username
 	tempUser.Password = util.ScryptPw(password)
-	tx := gorm.DB.Begin()
+	tx := storage.DB.Begin()
 	defer func() {
 		if r := recover(); r != nil {
 			tx.Rollback()
@@ -41,7 +41,7 @@ func Register(username, password string) (uint, error) {
 // Login 登录验证
 func Login(username, password string) (uint, error) {
 	var tempUser model.User
-	gorm.DB.Where("name = ?", username).First(&tempUser)
+	storage.DB.Where("name = ?", username).First(&tempUser)
 	if tempUser.ID <= 0 {
 		return 0, errors.New("用户名不存在")
 	}
@@ -56,7 +56,7 @@ func UserInfo(userId, Tid uint) (model.UserInfoResponse, error) {
 	var user model.User
 	var userResp model.UserResp
 	var userInfoResponse model.UserInfoResponse
-	err := gorm.DB.Where("id = ?", userId).First(&user).Error
+	err := storage.DB.Where("id = ?", userId).First(&user).Error
 	if err != nil {
 		return userInfoResponse, err
 	}
