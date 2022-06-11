@@ -4,32 +4,17 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1903c5cf-1007-46c8-908e-ac928955f171" name="变更" comment="完成用户相关接口">
-      <change afterPath="$PROJECT_DIR$/api/feed.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/publish.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dbfunc/video.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/function/feed.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/function/publish.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/loger.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/qiniu.go" afterDir="false" />
+    <list default="true" id="1903c5cf-1007-46c8-908e-ac928955f171" name="变更" comment="完善日志功能">
+      <change afterPath="$PROJECT_DIR$/log/apiLog/log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/log/mysqlLog/log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/follow.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/follow.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dbfunc/comment.go" beforeDir="false" afterPath="$PROJECT_DIR$/dbfunc/comment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dbfunc/favorite.go" beforeDir="false" afterPath="$PROJECT_DIR$/dbfunc/favorite.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dbfunc/follow.go" beforeDir="false" afterPath="$PROJECT_DIR$/dbfunc/follow.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dbfunc/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/dbfunc/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/function/follow.go" beforeDir="false" afterPath="$PROJECT_DIR$/function/follow.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gorm/gorm.go" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gorm.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/comment.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/comment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/relation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/relation.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/video.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/video.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/token.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/latest_log.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/api-log/log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/api-log/log.20220611.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/loger.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/loger.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/mysql-log/log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/mysql-log/log.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/gorm.go" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gorm.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +116,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="包relation重命名为follow" />
     <MESSAGE value="完成用户相关接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成用户相关接口" />
+    <MESSAGE value="完成所有接口" />
+    <MESSAGE value="完善日志功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善日志功能" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
