@@ -1,7 +1,7 @@
 package model
 
 import (
-	"TikTok/db"
+	"TikTok/storage"
 	"gorm.io/gorm"
 )
 
@@ -36,7 +36,7 @@ func (U User) ToResp() (UR UserResp) {
 // IsFollowJudge 关注校验，视情况调用
 func (UR *UserResp) IsFollowJudge(UserId uint) {
 	var FR FollowRelation
-	db.DB.Where("follower_id = ? AND user_id = ?", UR.Id, UserId).First(&FR)
+	storage.DB.Where("follower_id = ? AND user_id = ?", UR.Id, UserId).First(&FR)
 	if FR.Id <= 0 {
 		(*UR).IsFollow = false
 	}

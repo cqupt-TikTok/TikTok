@@ -1,0 +1,8 @@
+
+2022/06/11 13:52:12 2006-01-02T15:04:05Z07:00
+
+2022/06/11 13:52:12 [31;1m[E:/GO语言/ZJ/TikTok/model/video.go:58 record not found %!s(float64=0.6069) %!s(int64=0) SELECT * FROM `favorite_video_relations` WHERE video_id = 23 AND user_id = 1 ORDER BY `favorite_video_relations`.`id` LIMIT 1] [35;1m%!s(MISSING)
+[0m[33m[%!f(MISSING)ms] [34;1m[rows:%!v(MISSING)][0m %!s(MISSING)
+)
+hema.columns WHERE table_schema = 'tiktok' AND table_name = 'favorite_video_relations' ORDER BY ORDINAL_POSITION]
+[0m[33m[%!f(MISSING)ms] [34;1m[rows:%!v(MISSING)][0m %!s(MISSING)
