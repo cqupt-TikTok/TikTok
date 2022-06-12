@@ -1,7 +1,7 @@
 package api
 
 import (
-	"TikTok/function"
+	"TikTok/apifunc"
 	"TikTok/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -12,7 +12,7 @@ func CommentAction(c *gin.Context) {
 	var resp model.CommentActionResponse
 	var commentResp model.CommentResp
 	var err error
-	commentResp, err = function.CommentAction(c)
+	commentResp, err = apifunc.CommentAction(c)
 	resp.CommentResp = commentResp
 	actionType := c.Query("action_type")
 	if actionType == "1" {
@@ -47,7 +47,7 @@ func CommentAction(c *gin.Context) {
 func CommentList(c *gin.Context) {
 	var resp model.CommentListResponse
 	var err error
-	resp, err = function.CommentList(c)
+	resp, err = apifunc.CommentList(c)
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg = "查询失败:" + err.Error()

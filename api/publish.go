@@ -1,7 +1,7 @@
 package api
 
 import (
-	"TikTok/function"
+	"TikTok/apifunc"
 	"TikTok/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -9,7 +9,7 @@ import (
 
 func Publish(c *gin.Context) {
 	var resp model.BaseResponse
-	err := function.Publish(c)
+	err := apifunc.Publish(c)
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg = "发布失败"
@@ -25,7 +25,7 @@ func Publish(c *gin.Context) {
 func PublishList(c *gin.Context) {
 	var resp model.PostListResponse
 	var err error
-	resp, err = function.PublishList(c)
+	resp, err = apifunc.PublishList(c)
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg = "查询失败"

@@ -5,16 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1903c5cf-1007-46c8-908e-ac928955f171" name="变更" comment="完善日志功能">
-      <change afterPath="$PROJECT_DIR$/log/apiLog/log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/mysqlLog/log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/comment.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/comment.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/favorite.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/favorite.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/feed.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/feed.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/follow.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/follow.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/publish.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/publish.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/function/comment.go" beforeDir="false" afterPath="$PROJECT_DIR$/apifunc/comment.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/function/favorite.go" beforeDir="false" afterPath="$PROJECT_DIR$/apifunc/favorite.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/function/feed.go" beforeDir="false" afterPath="$PROJECT_DIR$/apifunc/feed.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/function/follow.go" beforeDir="false" afterPath="$PROJECT_DIR$/apifunc/follow.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/function/publish.go" beforeDir="false" afterPath="$PROJECT_DIR$/apifunc/publish.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/function/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/apifunc/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/latest_log.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/api-log/log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/log/api-log/log.20220611.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/loger.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/loger.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/mysql-log/log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/log/mysql-log/log.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/gorm.go" beforeDir="false" afterPath="$PROJECT_DIR$/storage/gorm.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

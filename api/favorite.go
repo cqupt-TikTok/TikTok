@@ -1,7 +1,7 @@
 package api
 
 import (
-	"TikTok/function"
+	"TikTok/apifunc"
 	"TikTok/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -12,7 +12,7 @@ func FavoriteAction(c *gin.Context) {
 	var resp model.BaseResponse
 	var err error
 	actionType := c.Query("action_type")
-	err = function.FavoriteAction(c)
+	err = apifunc.FavoriteAction(c)
 	if actionType == "1" {
 		resp.StatusMsg = "点赞"
 	} else if actionType == "2" {
@@ -36,7 +36,7 @@ func FavoriteAction(c *gin.Context) {
 
 // FavoriteVideoList 点赞视频列表
 func FavoriteVideoList(c *gin.Context) {
-	favoriteListResponse, err := function.FavoriteVideoList(c)
+	favoriteListResponse, err := apifunc.FavoriteVideoList(c)
 	if err != nil {
 		favoriteListResponse.StatusCode = -1
 		favoriteListResponse.StatusMsg = err.Error()
