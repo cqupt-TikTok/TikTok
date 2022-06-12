@@ -12,6 +12,7 @@ import (
 	"net/http"
 )
 
+// FollowAction 关注操作
 func FollowAction(c *gin.Context) {
 	var resp model.BaseResponse
 	err := apifunc.FollowAction(c)
@@ -21,7 +22,6 @@ func FollowAction(c *gin.Context) {
 	} else {
 		resp.StatusMsg = "取消关注"
 	}
-
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg += "失败"
@@ -29,10 +29,10 @@ func FollowAction(c *gin.Context) {
 		resp.StatusCode = 0
 		resp.StatusMsg += "成功"
 	}
-
 	c.JSON(http.StatusOK, resp)
 }
 
+// FollowList 关注列表
 func FollowList(c *gin.Context) {
 	var resp model.FollowListResponse
 	var err error
@@ -44,10 +44,10 @@ func FollowList(c *gin.Context) {
 		resp.StatusCode = 0
 		resp.StatusMsg = "获取关注列表成功"
 	}
-
 	c.JSON(http.StatusOK, resp)
 }
 
+// FollowerList 粉丝列表
 func FollowerList(c *gin.Context) {
 	var resp model.FollowListResponse
 	var err error
@@ -59,6 +59,5 @@ func FollowerList(c *gin.Context) {
 		resp.StatusCode = 0
 		resp.StatusMsg = "获取粉丝列表成功"
 	}
-
 	c.JSON(http.StatusOK, resp)
 }

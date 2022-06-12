@@ -6,7 +6,7 @@ import "time"
 type FollowRelation struct {
 	Id         uint      `gorm:"column:id;primaryKey"` //主键唯一id
 	UserId     uint      `gorm:"column:user_id"`       //用户id
-	FollowerId uint      `gorm:"column:follower_id"`   //被关注用户的id
+	FollowerId uint      `gorm:"column:follower_id"`   //被关注用户的id,即FollowerId是UserId的粉丝
 	FollowDate time.Time `gorm:"column:follow_date"`   //关注时间
 }
 

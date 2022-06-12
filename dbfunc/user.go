@@ -7,7 +7,7 @@ import (
 	"errors"
 )
 
-// Register 注册
+// Register 注册储存用户信息
 func Register(username, password string) (uint, error) {
 	var tempUser model.User
 	storage.DB.Where("name = ?", username).First(&tempUser)
@@ -51,7 +51,7 @@ func Login(username, password string) (uint, error) {
 	return tempUser.ID, nil
 }
 
-// UserInfo userid要查询用户的id，Tid登录用户token中的id
+// UserInfo 获取用户详情userid要查询用户的id，Tid登录用户token中的id
 func UserInfo(userId, Tid uint) (model.UserInfoResponse, error) {
 	var user model.User
 	var userResp model.UserResp

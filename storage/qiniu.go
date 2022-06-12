@@ -8,6 +8,7 @@ import (
 	"mime/multipart"
 )
 
+// UpLoadFile 上传文件
 func UpLoadFile(file multipart.File, fileName string, fileSize int64) error {
 	putPolicy := storage.PutPolicy{
 		Scope: config.Bucket,

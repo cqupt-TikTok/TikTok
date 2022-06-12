@@ -53,6 +53,7 @@ func CheckToken(token string) (*MyClaims, error) {
 	return key, nil
 }
 
+// JWT 中间件
 func JWT() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.Query("token")

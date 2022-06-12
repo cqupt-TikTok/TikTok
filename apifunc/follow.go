@@ -16,6 +16,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// FollowAction 关注操作
 func FollowAction(c *gin.Context) error {
 	toUserIdStr := c.Query("to_user_id")
 	toUserId64, err := strconv.Atoi(toUserIdStr)
@@ -52,6 +53,7 @@ func FollowAction(c *gin.Context) error {
 	}
 }
 
+// FollowList 关注列表
 func FollowList(c *gin.Context) ([]model.UserResp, error) {
 	var FollowList []model.UserResp
 	userIdStr := c.Query("user_id")
@@ -75,6 +77,7 @@ func FollowList(c *gin.Context) ([]model.UserResp, error) {
 	return FollowList, nil
 }
 
+// FollowerList 粉丝列表
 func FollowerList(c *gin.Context) (FollowerList []model.UserResp, err error) {
 	userIdStr := c.Query("user_id")
 	userIdInt, err := strconv.Atoi(userIdStr)
@@ -101,6 +104,7 @@ func FollowerList(c *gin.Context) (FollowerList []model.UserResp, err error) {
 	return
 }
 
+// GetUserList 获取用户列表
 func GetUserList(uids []uint, size int64) (UserList []model.UserResp, err error) {
 	UserList = make([]model.UserResp, 0, size)
 	Users, err := dbfunc.GetUsers(uids, size)

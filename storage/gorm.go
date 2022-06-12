@@ -9,6 +9,7 @@ import (
 
 var DB *gorm.DB
 
+// InitDb gorm初始化函数
 func InitDb() error {
 	logger := log.NewMysqlLogger()
 	var err error

@@ -12,6 +12,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// CreateRelation 创建用户关系，关注用户
 func CreateRelation(relation model.FollowRelation) (err error) {
 	//开始事务
 	tx := storage.DB.Begin()
@@ -55,6 +56,7 @@ func CreateRelation(relation model.FollowRelation) (err error) {
 	return tx.Commit().Error
 }
 
+// DeleteRelation 删除用户关系，取消关注
 func DeleteRelation(relation model.FollowRelation) (err error) {
 	//开始事务
 	tx := storage.DB.Begin()
@@ -98,6 +100,7 @@ func DeleteRelation(relation model.FollowRelation) (err error) {
 	return tx.Commit().Error
 }
 
+// GetFollowCount 获取用户关注总数
 func GetFollowCount(uid uint) (FollowCount int64, err error) {
 	var user model.User
 	err = storage.DB.Model(&user).Where("id = ?", uid).First(&user).Error
@@ -107,6 +110,7 @@ func GetFollowCount(uid uint) (FollowCount int64, err error) {
 	return user.FollowCount, err
 }
 
+// GetFollowerCount 获取用户粉丝总数
 func GetFollowerCount(uid uint) (FollowCount int64, err error) {
 	var user model.User
 	err = storage.DB.Model(&user).Where("id = ?", uid).First(&user).Error
@@ -116,6 +120,7 @@ func GetFollowerCount(uid uint) (FollowCount int64, err error) {
 	return user.FollowerCount, err
 }
 
+// GetFollowIds 获取用户关注的用户id
 func GetFollowIds(uid uint, size int64) (uids []uint, err error) {
 	// 通过提前获取切片大小, 提前为切片分配空间, 避免重复分配内存影响性能
 	relations := make([]model.FollowRelation, 0, size)
@@ -131,6 +136,7 @@ func GetFollowIds(uid uint, size int64) (uids []uint, err error) {
 	return
 }
 
+// GetFollowerIds 获取用户粉丝的id
 func GetFollowerIds(uid uint, size int64) (uids []uint, err error) {
 	// 通过提前获取切片大小, 提前为切片分配空间, 避免重复分配内存影响性能
 	relations := make([]model.FollowRelation, 0, size)
@@ -144,6 +150,7 @@ func GetFollowerIds(uid uint, size int64) (uids []uint, err error) {
 	return
 }
 
+// GetUsers 查询绑定用户信息
 func GetUsers(uids []uint, size int64) (users []model.User, err error) {
 	users = make([]model.User, 0, size)
 	err = storage.DB.Model(&model.User{}).Where("id IN ?", uids).Find(&users).Error

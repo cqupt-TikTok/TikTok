@@ -96,12 +96,12 @@ func DropFavoriteVideo(videoId, userId uint) error {
 // GetFavoriteVideoList 查询点赞视频列表
 func GetFavoriteVideoList(userId uint) (favoriteVideoList []model.VideoResp, err error) {
 	var FVR []model.FavoriteVideoRelation
-	err = storage.DB.Model(&model.FavoriteVideoRelation{}).Where("user_id = ?", userId).Find(&FVR).Error
+	err = storage.DB.Where("user_id = ?", userId).Find(&FVR).Error
 	if err != nil {
 		return nil, err
 	}
-	var tempVideo model.Video
 	for _, v := range FVR {
+		var tempVideo model.Video
 		storage.DB.Where("id = ?", v.VideoId).First(&tempVideo)
 		favoriteVideoList = append(favoriteVideoList, tempVideo.ToResp(userId))
 	}

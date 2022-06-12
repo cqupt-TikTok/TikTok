@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// Publish 视频投稿
 func Publish(c *gin.Context) {
 	var resp model.BaseResponse
 	err := apifunc.Publish(c)
@@ -22,6 +23,7 @@ func Publish(c *gin.Context) {
 	return
 }
 
+// PublishList 发布列表
 func PublishList(c *gin.Context) {
 	var resp model.PostListResponse
 	var err error

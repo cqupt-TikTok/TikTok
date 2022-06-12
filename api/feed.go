@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// Feed 视频流
 func Feed(c *gin.Context) {
 	var resp model.FeedResponse
 	var err error

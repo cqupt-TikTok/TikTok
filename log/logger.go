@@ -86,35 +86,32 @@ func ApiLogger() gin.HandlerFunc {
 	}
 }
 
-type Writer struct {
+type MyWriter struct {
+	mlog *logrus.Logger
 }
 
-//func (w Writer) Printf(format string, args ...interface{}) {
-//	filePath := "log/mysql-log/log.log"
-//	src, err := os.OpenFile(filePath, os.O_APPEND, 0755)
-//	if err != nil {
-//		fmt.Println("logger err 2")
-//		return
-//	}
-//	mylogger := log.New(src, "\r\n", log.LstdFlags)
-//	mylogger.Println(time.RFC3339)
-//	mylogger.Printf(format, args)
-//	return
-//}
+//实现gorm/logger.Writer接口
+func (m *MyWriter) Printf(format string, v ...interface{}) {
+	//利用loggus记录日志
+	hostName, err := os.Hostname()
+	if err != nil {
+		hostName = "unknown"
+	}
+	m.mlog.Info("HostName: ", hostName, "  sql: ", v)
+}
 
-func (w Writer) Printf(format string, args ...interface{}) {
+func NewMyWriter() *MyWriter {
 	var err error
 	var src *os.File
-	var hostName string
+	log := logrus.New()
 	filePath := "log/mysqlLog/log."
 	linkName := "mysqlLatest_log.log"
 	src, err = os.OpenFile(filePath, os.O_CREATE, 0755)
 	if err != nil {
 		fmt.Println("logger err:", err)
 	}
-	mylogger := logrus.New()
-	mylogger.Out = src
-	mylogger.SetLevel(logrus.InfoLevel)
+	log.Out = src
+	log.SetLevel(logrus.InfoLevel)
 	logWriter, _ := retalog.New(
 		filePath+"%Y%m%d.log",
 		retalog.WithMaxAge(7*24*time.Hour),
@@ -132,23 +129,14 @@ func (w Writer) Printf(format string, args ...interface{}) {
 	Hook := lfshook.NewHook(writeMap, &logrus.TextFormatter{
 		TimestampFormat: "2006-01-02 15:04:05",
 	})
-	mylogger.AddHook(Hook)
-	hostName, err = os.Hostname()
-	if err != nil {
-		hostName = "unknown"
-	}
-	entry := mylogger.WithFields(logrus.Fields{
-		"HostName": hostName,
-		"Mysql":    args,
-	})
-	entry.Info()
-	return
+	log.AddHook(Hook)
+	return &MyWriter{mlog: log}
 }
 
 // NewMysqlLogger mysql日志记录
 func NewMysqlLogger() logger.Interface {
 	newLogger := logger.New(
-		Writer{},
+		NewMyWriter(),
 		logger.Config{
 			SlowThreshold:             200 * time.Millisecond,
 			Colorful:                  false,
