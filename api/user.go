@@ -1,7 +1,7 @@
 package api
 
 import (
-	"TikTok/function"
+	"TikTok/apifunc"
 	"TikTok/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -11,7 +11,7 @@ import (
 func Register(c *gin.Context) {
 	var resp model.UserResponse
 	var err error
-	resp, err = function.Register(c)
+	resp, err = apifunc.Register(c)
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg = "注册失败:" + err.Error()
@@ -28,7 +28,7 @@ func Register(c *gin.Context) {
 func Login(c *gin.Context) {
 	var resp model.UserResponse
 	var err error
-	resp, err = function.LoginCheck(c)
+	resp, err = apifunc.LoginCheck(c)
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg = "登录失败:" + err.Error()
@@ -45,7 +45,7 @@ func Login(c *gin.Context) {
 func UserInfo(c *gin.Context) {
 	var resp model.UserInfoResponse
 	var err error
-	resp, err = function.UserInfo(c)
+	resp, err = apifunc.UserInfo(c)
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg = "查询失败:" + err.Error()

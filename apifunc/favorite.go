@@ -1,4 +1,4 @@
-package function
+package apifunc
 
 import (
 	"TikTok/dbfunc"
@@ -37,7 +37,7 @@ func FavoriteAction(c *gin.Context) (err error) {
 	return errors.New("action_type错误")
 }
 
-//
+// FavoriteVideoList 点赞视频列表
 func FavoriteVideoList(c *gin.Context) (model.FavoriteListResponse, error) {
 	var favoriteListResponse model.FavoriteListResponse
 	userId64, _ := strconv.ParseUint(c.Query("user_id"), 10, 64)

@@ -1,4 +1,4 @@
-package function
+package apifunc
 
 import (
 	"TikTok/config"
@@ -12,6 +12,7 @@ import (
 	"time"
 )
 
+// Publish 发布视频
 func Publish(c *gin.Context) error {
 	var key *util.MyClaims
 	var playUrl string
@@ -55,6 +56,7 @@ func Publish(c *gin.Context) error {
 	return nil
 }
 
+// PublishList 获取发布列表
 func PublishList(c *gin.Context) (resp model.PostListResponse, err error) {
 	var key *util.MyClaims
 	token := c.Query("token")

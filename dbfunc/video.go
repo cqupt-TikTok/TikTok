@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// Feed 查询视频流视频
 func Feed(lastTime int64, Tid uint) (videoList []model.VideoResp, nextTime int64, err error) {
 	var videos []model.Video
 	var Vresp model.VideoResp
@@ -25,6 +26,8 @@ func Feed(lastTime int64, Tid uint) (videoList []model.VideoResp, nextTime int64
 	nextTime = videos[0].CreatedAt.Unix()
 	return videoList, nextTime, nil
 }
+
+// Publish 储存视频信息
 func Publish(Tid uint, Title string, playUrl string, coverUrl string) error {
 	var video = model.Video{
 		AuthorId: Tid,
@@ -38,14 +41,16 @@ func Publish(Tid uint, Title string, playUrl string, coverUrl string) error {
 	}
 	return nil
 }
+
+// PostList 查询发布列表
 func PostList(userId, Tid uint) (videoList []model.VideoResp, err error) {
 	var videos []model.Video
-	var Vresp model.VideoResp
 	err = storage.DB.Where("author_id = ?", userId).Find(&videos).Error
 	if err != nil {
 		return videoList, err
 	}
 	for _, v := range videos {
+		var Vresp model.VideoResp
 		Vresp = v.ToResp(userId)
 		Vresp.IsFavoriteJudge(Tid)
 		videoList = append(videoList, Vresp)

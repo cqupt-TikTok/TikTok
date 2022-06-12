@@ -1,16 +1,17 @@
 package api
 
 import (
-	"TikTok/function"
+	"TikTok/apifunc"
 	"TikTok/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
+// Feed 视频流
 func Feed(c *gin.Context) {
 	var resp model.FeedResponse
 	var err error
-	resp, err = function.Feed(c)
+	resp, err = apifunc.Feed(c)
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg = "查询失败"

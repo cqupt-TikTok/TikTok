@@ -1,4 +1,4 @@
-package function
+package apifunc
 
 import (
 	"TikTok/dbfunc"

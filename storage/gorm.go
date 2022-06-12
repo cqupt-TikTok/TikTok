@@ -9,8 +9,9 @@ import (
 
 var DB *gorm.DB
 
+// InitDb gorm初始化函数
 func InitDb() error {
-	logger := log.NewLogger()
+	logger := log.NewMysqlLogger()
 	var err error
 	dsn := config.UserName + ":" + config.Password + "@tcp(" + config.HOST + ")/" + config.DbName + "?charset=utf8mb4&parseTime=True&loc=Local"
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{Logger: logger})

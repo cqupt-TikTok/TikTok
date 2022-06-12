@@ -1,4 +1,4 @@
-package function
+package apifunc
 
 import (
 	"TikTok/dbfunc"
@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// Feed 视频流
 func Feed(c *gin.Context) (resp model.FeedResponse, err error) {
 	var key *util.MyClaims
 	var Tid uint

@@ -6,22 +6,22 @@
 package api
 
 import (
-	"TikTok/function"
+	"TikTok/apifunc"
 	"TikTok/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
+// FollowAction 关注操作
 func FollowAction(c *gin.Context) {
 	var resp model.BaseResponse
-	err := function.FollowAction(c)
+	err := apifunc.FollowAction(c)
 	ActionType := c.Query("action_type")
 	if ActionType == "1" {
 		resp.StatusMsg = "关注"
 	} else {
 		resp.StatusMsg = "取消关注"
 	}
-
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg += "失败"
@@ -29,14 +29,14 @@ func FollowAction(c *gin.Context) {
 		resp.StatusCode = 0
 		resp.StatusMsg += "成功"
 	}
-
 	c.JSON(http.StatusOK, resp)
 }
 
+// FollowList 关注列表
 func FollowList(c *gin.Context) {
 	var resp model.FollowListResponse
 	var err error
-	resp.UserList, err = function.FollowList(c)
+	resp.UserList, err = apifunc.FollowList(c)
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg = "获取关注列表失败"
@@ -44,14 +44,14 @@ func FollowList(c *gin.Context) {
 		resp.StatusCode = 0
 		resp.StatusMsg = "获取关注列表成功"
 	}
-
 	c.JSON(http.StatusOK, resp)
 }
 
+// FollowerList 粉丝列表
 func FollowerList(c *gin.Context) {
 	var resp model.FollowListResponse
 	var err error
-	resp.UserList, err = function.FollowerList(c)
+	resp.UserList, err = apifunc.FollowerList(c)
 	if err != nil {
 		resp.StatusCode = -1
 		resp.StatusMsg = "获取粉丝列表失败"
@@ -59,6 +59,5 @@ func FollowerList(c *gin.Context) {
 		resp.StatusCode = 0
 		resp.StatusMsg = "获取粉丝列表成功"
 	}
-
 	c.JSON(http.StatusOK, resp)
 }

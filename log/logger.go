@@ -7,15 +7,15 @@ import (
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm/logger"
-	"log"
 	"math"
 	"os"
 	"time"
 )
 
+// ApiLogger 路由日志记录
 func ApiLogger() gin.HandlerFunc {
-	filePath := "log/api-log/log."
-	linkName := "latest_log.log"
+	filePath := "log/apiLog/log."
+	linkName := "apiLatest_log.log"
 	src, err := os.OpenFile(filePath, os.O_CREATE, 0755)
 	if err != nil {
 		fmt.Println("logger err:", err)
@@ -86,25 +86,57 @@ func ApiLogger() gin.HandlerFunc {
 	}
 }
 
-type Writer struct {
+type MyWriter struct {
+	mlog *logrus.Logger
 }
 
-func (w Writer) Printf(format string, args ...interface{}) {
-	filePath := "log/mysql-log/log.log"
-	src, err := os.OpenFile(filePath, os.O_APPEND, 0755)
+//实现gorm/logger.Writer接口
+func (m *MyWriter) Printf(format string, v ...interface{}) {
+	//利用loggus记录日志
+	hostName, err := os.Hostname()
 	if err != nil {
-		fmt.Println("logger err 2")
-		return
+		hostName = "unknown"
 	}
-	mylogger := log.New(src, "\r\n", log.LstdFlags)
-	mylogger.Println(time.RFC3339)
-	mylogger.Printf(format, args)
-	return
+	m.mlog.Info("HostName: ", hostName, "  sql: ", v)
 }
 
-func NewLogger() logger.Interface {
+func NewMyWriter() *MyWriter {
+	var err error
+	var src *os.File
+	log := logrus.New()
+	filePath := "log/mysqlLog/log."
+	linkName := "mysqlLatest_log.log"
+	src, err = os.OpenFile(filePath, os.O_CREATE, 0755)
+	if err != nil {
+		fmt.Println("logger err:", err)
+	}
+	log.Out = src
+	log.SetLevel(logrus.InfoLevel)
+	logWriter, _ := retalog.New(
+		filePath+"%Y%m%d.log",
+		retalog.WithMaxAge(7*24*time.Hour),
+		retalog.WithRotationTime(24*time.Hour),
+		retalog.WithLinkName(linkName),
+	)
+	writeMap := lfshook.WriterMap{
+		logrus.InfoLevel:  logWriter,
+		logrus.FatalLevel: logWriter,
+		logrus.DebugLevel: logWriter,
+		logrus.WarnLevel:  logWriter,
+		logrus.ErrorLevel: logWriter,
+		logrus.PanicLevel: logWriter,
+	}
+	Hook := lfshook.NewHook(writeMap, &logrus.TextFormatter{
+		TimestampFormat: "2006-01-02 15:04:05",
+	})
+	log.AddHook(Hook)
+	return &MyWriter{mlog: log}
+}
+
+// NewMysqlLogger mysql日志记录
+func NewMysqlLogger() logger.Interface {
 	newLogger := logger.New(
-		Writer{},
+		NewMyWriter(),
 		logger.Config{
 			SlowThreshold:             200 * time.Millisecond,
 			Colorful:                  false,
