@@ -44,6 +44,16 @@ func AddFavoriteVideo(videoId, userId uint) error {
 		tx.Rollback()
 		return err
 	}
+	//用户被喜欢总数(获赞总数)TotalFavorited+1
+	if err := tx.Model(&model.User{}).Where("id = ? ", v.AuthorId).Update("total_favorited", gorm.Expr("total_favorited+ ?", 1)).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	//用户喜欢总数(点赞总数)FavoriteCount+1
+	if err := tx.Model(&model.User{}).Where("id = ? ", userId).Update("favorite_count", gorm.Expr("favorite_count+ ?", 1)).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
 	//点赞表中写入数据
 	if err := tx.Create(&favoriteVideoRelation).Error; err != nil {
 		tx.Rollback()
@@ -80,6 +90,16 @@ func DropFavoriteVideo(videoId, userId uint) error {
 	}
 	//视频点赞总数favorite_count-1
 	if err := tx.Model(&model.Video{}).Where("id = ? ", videoId).Update("favorite_count", gorm.Expr("favorite_count- ?", 1)).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	//用户被喜欢总数(获赞总数)TotalFavorited-1
+	if err := tx.Model(&model.User{}).Where("id = ? ", v.AuthorId).Update("total_favorited", gorm.Expr("total_favorited- ?", 1)).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	//用户喜欢总数(点赞总数)FavoriteCount-1
+	if err := tx.Model(&model.User{}).Where("id = ? ", userId).Update("favorite_count", gorm.Expr("favorite_count- ?", 1)).Error; err != nil {
 		tx.Rollback()
 		return err
 	}
