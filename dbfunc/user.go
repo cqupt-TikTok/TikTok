@@ -16,6 +16,9 @@ func Register(username, password string) (uint, error) {
 	}
 	tempUser.Name = username
 	tempUser.Password = util.ScryptPw(password)
+	tempUser.Signature = "测试！测试！！测试！！！"
+	tempUser.BackgroundImage = "http://zbwzbw.top/background-image-test2.jpeg"
+	tempUser.Avatar = "http://zbwzbw.top/avatar-test-2.jpg.jpg"
 	tx := storage.DB.Begin()
 	defer func() {
 		if r := recover(); r != nil {
