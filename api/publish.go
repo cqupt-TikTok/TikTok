@@ -13,7 +13,7 @@ func Publish(c *gin.Context) {
 	err := apifunc.Publish(c)
 	if err != nil {
 		resp.StatusCode = -1
-		resp.StatusMsg = "发布失败"
+		resp.StatusMsg = "发布失败:" + err.Error()
 		c.JSON(http.StatusOK, resp)
 		return
 	}

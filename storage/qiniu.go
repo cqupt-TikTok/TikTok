@@ -17,7 +17,7 @@ func UpLoadFile(file multipart.File, fileName string, fileSize int64) error {
 	upToken := putPolicy.UploadToken(mac)
 	cfg := storage.Config{
 		Zone:          &storage.ZoneHuadong,
-		UseCdnDomains: true,
+		UseCdnDomains: false,
 		UseHTTPS:      false,
 	}
 	resumeUploader := storage.NewResumeUploaderV2(&cfg)

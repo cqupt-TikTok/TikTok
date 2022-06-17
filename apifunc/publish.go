@@ -6,7 +6,7 @@ import (
 	"TikTok/model"
 	"TikTok/storage"
 	"TikTok/util"
-	"fmt"
+	"errors"
 	"github.com/gin-gonic/gin"
 	"strconv"
 	"time"
@@ -34,6 +34,10 @@ func Publish(c *gin.Context) error {
 	Tid := key.UserId
 	title := c.PostForm("title")
 	data, _ := c.FormFile("data")
+	//fmt.Println(data.Size)
+	if data.Size > 10*1024*1024 {
+		return errors.New("文件过大，上传失败")
+	}
 	file, err := data.Open()
 	if err != nil {
 		return err
@@ -43,12 +47,11 @@ func Publish(c *gin.Context) error {
 	coverUrl = playUrl + "?vframe/jpg/offset/1"
 	err = storage.UpLoadFile(file, videoName, data.Size)
 	if err != nil {
-		fmt.Println(err)
-		fmt.Println("upLoade "+videoName+" false: ", err.Error())
+		//fmt.Println(err)
+		//fmt.Println("upLoade "+videoName+" false: ", err.Error())
 		return err
-	} else {
-		fmt.Println("upLoade " + videoName + " finished")
 	}
+	//fmt.Println("upLoade " + videoName + " finished")
 	err = dbfunc.Publish(Tid, title, playUrl, coverUrl)
 	if err != nil {
 		return err
