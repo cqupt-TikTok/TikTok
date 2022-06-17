@@ -4,6 +4,7 @@ import (
 	"TikTok/api"
 	"TikTok/log"
 	"TikTok/util"
+	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,7 +14,7 @@ func InitRouter() error {
 	r.Use(log.ApiLogger())
 	r.Use(gin.Recovery())
 	apiRouter := r.Group("/douyin")
-
+	pprof.Register(r)
 	// basic apis
 	apiRouter.GET("/feed/", api.Feed)
 	apiRouter.GET("/user/", util.JWT(), api.UserInfo)
