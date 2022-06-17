@@ -9,9 +9,9 @@ import (
 // Comment 评论
 type Comment struct {
 	gorm.Model
-	VideoId uint   `gorm:"column:video_id;not null"` //视频id作为外键
-	UserId  uint   `gorm:"column:user_id;not null"`  //用户id，作为第二外键
-	Content string `gorm:"column:content;type:text"` //评论内容
+	VideoId uint   `gorm:"column:video_id;not null;index"` //视频id作为外键
+	UserId  uint   `gorm:"column:user_id;not null;index"`  //用户id，作为第二外键
+	Content string `gorm:"column:content;type:text"`       //评论内容
 }
 
 // CommentResp 响应结构体

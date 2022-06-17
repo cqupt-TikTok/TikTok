@@ -8,7 +8,7 @@ import (
 // Video 视频
 type Video struct {
 	gorm.Model
-	AuthorId      uint   `gorm:"column:author_id"`                            //作者id，作为外键
+	AuthorId      uint   `gorm:"column:author_id;index"`                      //作者id，作为外键
 	Title         string `gorm:"column:title;type:varchar(100);not null"`     //视频标题
 	PlayUrl       string `gorm:"column:play_url;type:varchar(100);not null"`  // 视频播放地址
 	CoverUrl      string `gorm:"column:cover_url;type:varchar(100);not null"` // 视频封面地址

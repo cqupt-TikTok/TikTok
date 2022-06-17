@@ -8,15 +8,15 @@ import (
 // User 用户
 type User struct {
 	gorm.Model
-	Name            string `gorm:"column:name;type:varchar(20);not null"`     // 用户名称
-	Password        string `gorm:"column:password;type:varchar(20);not null"` //用户密码
-	Signature       string `gorm:"column:signature;type:varchar(20)"`         //个性签名
-	Avatar          string `gorm:"column:avatar;type:varchar(100)"`           //用户头像链接
-	BackgroundImage string `gorm:"column:background_image;type:varchar(100)"` //背景图链接
-	FollowCount     int64  `gorm:"column:follow_count;type:int;default:0"`    // 关注总数
-	FollowerCount   int64  `gorm:"column:follower_count;type:int;default:0"`  // 粉丝总数
-	TotalFavorited  int64  `gorm:"column:total_favorited;type:int;default:0"` //被赞总次数
-	FavoriteCount   int64  `gorm:"column:favorite_count;type:int;default:0"`  //喜欢总数量
+	Name            string `gorm:"column:name;type:varchar(20);not null;index"` // 用户名称
+	Password        string `gorm:"column:password;type:varchar(20);not null"`   //用户密码
+	Signature       string `gorm:"column:signature;type:varchar(20)"`           //个性签名
+	Avatar          string `gorm:"column:avatar;type:varchar(100)"`             //用户头像链接
+	BackgroundImage string `gorm:"column:background_image;type:varchar(100)"`   //背景图链接
+	FollowCount     int64  `gorm:"column:follow_count;type:int;default:0"`      // 关注总数
+	FollowerCount   int64  `gorm:"column:follower_count;type:int;default:0"`    // 粉丝总数
+	TotalFavorited  int64  `gorm:"column:total_favorited;type:int;default:0"`   //被赞总次数
+	FavoriteCount   int64  `gorm:"column:favorite_count;type:int;default:0"`    //喜欢总数量
 }
 
 // UserResp 响应结构体

@@ -4,10 +4,10 @@ import "time"
 
 // FollowRelation 用户关注表
 type FollowRelation struct {
-	Id         uint      `gorm:"column:id;primaryKey"` //主键唯一id
-	UserId     uint      `gorm:"column:user_id"`       //用户id
-	FollowerId uint      `gorm:"column:follower_id"`   //被关注用户的id,即FollowerId是UserId的粉丝
-	FollowDate time.Time `gorm:"column:follow_date"`   //关注时间
+	Id         uint      `gorm:"column:id;primaryKey"`     //主键唯一id
+	UserId     uint      `gorm:"column:user_id;index"`     //用户id
+	FollowerId uint      `gorm:"column:follower_id;index"` //被关注用户的id,即FollowerId是UserId的粉丝
+	FollowDate time.Time `gorm:"column:follow_date"`       //关注时间
 }
 
 // FavoriteVideoRelation 视频点赞表
