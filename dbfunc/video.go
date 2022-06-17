@@ -8,22 +8,25 @@ import (
 
 // Feed 查询视频流视频
 func Feed(lastTime int64, Tid uint) (videoList []model.VideoResp, nextTime int64, err error) {
-	var videos []model.Video
+	var videos, Videos []model.Video
 	var Vresp model.VideoResp
 	err = storage.DB.Order("created_at").Where("created_at < FROM_UNIXTIME(?)", lastTime).Limit(30).Find(&videos).Error
 	if err != nil {
 		return videoList, time.Now().Unix(), err
 	}
-	for _, v := range videos {
+	if len(videos) == 0 {
+		return videoList, time.Now().Unix(), nil
+	}
+	nextTime = videos[0].CreatedAt.Unix()
+	for i := len(videos) - 1; i >= 0; i-- {
+		Videos = append(Videos, videos[i])
+	}
+	for _, v := range Videos {
 		Vresp = v.ToResp(Tid)
 		Vresp.IsFavoriteJudge(Tid)
 		Vresp.Author.IsFollowJudge(Tid)
 		videoList = append(videoList, Vresp)
 	}
-	if len(videos) == 0 {
-		return videoList, time.Now().Unix(), nil
-	}
-	nextTime = videos[0].CreatedAt.Unix()
 	return videoList, nextTime, nil
 }
 
